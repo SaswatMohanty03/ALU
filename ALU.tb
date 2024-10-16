@@ -1,37 +1,37 @@
 `timescale 1ns / 1ps
 
-
-module alu_tb(
+module ALU_tb(
 
     );
-    //INPUTS
-    reg [7:0] A,B;
-    reg [3:0]ALU_Sel;
+    reg[7:0]A;
+    reg[7:0]B;
+    reg[2:0]alu_sel;
+    wire[7:0]alu_out;
+    wire carry_out;
     
-    //OUTPUTS
-    wire [7:0] ALU_Out;
-    wire CarryOut;
+    ALU dut(A,B,alu_sel,alu_out,carry_out);
     
-    integer i;
-    alu uut(
-            A,B,
-            ALU_Sel,
-            ALU_Out,
-            CarryOut
-            );
-            initial begin
-            A = 8'h0A;
-            B = 4'h02;
-            ALU_Sel = 4'h0;
-            
-            for(i=0; i<=15; i=i+1)
-            begin
-            ALU_Sel = ALU_Sel + 8'h01;
-            #10;
-            end;
-            
-            A = 8'hF6;
-            B = 8'h0A;
-            
-            end
-            endmodule
+    initial begin
+    
+    A = 8'b10000001;
+    B = 8'b00000011;
+    alu_sel = 3'b101;
+    #10;
+    alu_sel = 3'b100;
+    #10;
+    alu_sel = 3'b000;
+    #10;
+    alu_sel = 3'b001;
+    #10;
+    alu_sel = 3'b010;
+    #10;
+    alu_sel = 3'b011;
+    #10;
+    alu_sel = 3'b111;
+    #10;
+    alu_sel = 3'b110;
+    #10;
+    $finish;
+    end
+    
+    endmodule
